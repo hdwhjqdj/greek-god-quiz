@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#f6f3ec">
+<title>你是古希腊的哪位神 · 8 题速测 | 德尔斐神谕</title>
+<style>
+  :root{
+    --marble:#f6f3ec;
+    --card:#fffdf8;
+    --sea:#1f5fa8;
+    --sea-2:#7fb3d9;
+    --gold:#c9a35c;
+    --gold-2:#e2c98a;
+    --terra:#c4623f;
+    --olive:#6f7f4a;
+    --ink:#22303f;
+    --ink-2:#5c6570;
+    --muted:#8d8979;
+    --line:rgba(201,163,92,.38);
+    --line-soft:rgba(201,163,92,.22);
+    --shadow:0 26px 60px -34px rgba(61,71,82,.32), 0 6px 20px -14px rgba(61,71,82,.16);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  html,body{margin:0; padding:0; overflow-x:hidden}
+  body{
+    min-height:100vh;
+    color:var(--ink);
+    font-family:"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;
+    font-size:16px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    overscroll-behavior-y:contain;
+    background-color:var(--marble);
+    background-image:
+      radial-gradient(ellipse 72% 42% at 14% 0%, rgba(255,255,255,.9), rgba(255,255,255,0) 62%),
+      radial-gradient(ellipse 54% 34% at 92% 16%, rgba(226,201,138,.15), rgba(226,201,138,0) 60%),
+      radial-gradient(ellipse 62% 44% at 18% 88%, rgba(127,179,217,.10), rgba(127,179,217,0) 66%),
+      repeating-linear-gradient(118deg, rgba(150,137,110,.052) 0 1px, rgba(150,137,110,0) 1px 30px),
+      repeating-linear-gradient(58deg, rgba(150,137,110,.034) 0 1px, rgba(150,137,110,0) 1px 45px),
+      linear-gradient(180deg,#fbf9f3 0%, #f6f3ec 55%, #f2eee5 100%);
+    background-attachment:fixed;
+  }
+  [hidden]{display:none !important}
+  button{font-family:inherit; font-size:inherit; color:inherit; border:none; background:none; cursor:pointer; touch-action:manipulation}
+  p,h1,h2,h3,ol,ul{margin:0}
+  a{color:inherit}
+  .display{font-family:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif}
+  .app{
+    position:relative; z-index:1;
+    max-width:520px; width:100%;
+    margin:0 auto;
+    padding:calc(16px + env(safe-area-inset-top)) 16px calc(18px + env(safe-area-inset-bottom));
+  }
+  .screen{display:flex; flex-direction:column; min-height:calc(100vh - 34px); min-height:calc(100svh - 34px); position:relative}
+  .screen-in{animation:screenIn .34s cubic-bezier(.22,.8,.3,1) both}
+  @keyframes screenIn{from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)}}
+  @keyframes floaty{0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)}}
+  @keyframes coinPulse{0%,100%{opacity:.55; transform:scale(.98)} 50%{opacity:1; transform:scale(1.02)}}
+  @keyframes ringSpin{to{transform:rotate(360deg)}}
+  @keyframes shimmer{0%{background-position:120% 0} 100%{background-position:-120% 0}}
+
+  /* ---------- 封面 ---------- */
+  .cover-wrap{flex:1; display:flex; flex-direction:column; justify-content:center}
+  .cover-card{
+    position:relative;
+    background:linear-gradient(180deg, rgba(255,253,248,.94) 0%, rgba(255,252,244,.98) 100%);
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:26px 22px 22px;
+    box-shadow:var(--shadow), inset 0 1px 0 #fff;
+    overflow:hidden;
+  }
+  .cover-card::before{
+    content:""; position:absolute; inset:8px; border-radius:22px;
+    border:1px solid rgba(201,163,92,.15); pointer-events:none;
+  }
+  .kicker{
+    display:flex; align-items:center; gap:9px;
+    font-size:10px; font-weight:700; letter-spacing:.24em; color:var(--gold);
+    text-transform:uppercase;
+  }
+  .kicker::before{content:""; width:22px; height:1px; background:linear-gradient(90deg,var(--gold),rgba(201,163,92,0))}
+  .cover-title{
+    margin:12px 0 6px;
+    font-family:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    font-size:clamp(38px,11.6vw,52px);
+    line-height:1.14; font-weight:700; letter-spacing:.01em;
+  }
+  .cover-title em{
+    font-style:normal; color:var(--sea); position:relative; white-space:nowrap;
+  }
+  .cover-title em::after{
+    content:""; position:absolute; left:1px; right:1px; bottom:2px; height:6px;
+    background:linear-gradient(90deg, rgba(226,201,138,.55), rgba(226,201,138,0));
+    border-radius:4px; z-index:-1;
+  }
+  .cover-sub{font-size:13.5px; color:var(--ink-2); line-height:1.85; margin-top:6px}
+  .cover-art{width:100%; margin:2px auto 0; max-width:400px}
+  .temple-svg{display:block; width:100%; height:auto; filter:drop-shadow(0 20px 24px rgba(88,78,52,.13))}
+  .cover-coin{animation:floaty 5.4s ease-in-out infinite}
+  .cover-desc{
+    font-size:13px; color:var(--ink-2); line-height:1.9;
+    border-left:2px solid rgba(201,163,92,.5); padding-left:12px; margin:4px 0 16px;
+  }
+  .facts{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px}
+  .fact{
+    font-size:11px; font-weight:600; letter-spacing:.06em; color:var(--ink-2);
+    padding:6px 11px; border-radius:999px;
+    background:linear-gradient(180deg,#fffefb,#f8f2e4);
+    border:1px solid rgba(201,163,92,.28);
+    box-shadow:0 4px 10px -8px rgba(61,71,82,.4), inset 0 1px 0 #fff;
+  }
+  .fact b{color:var(--sea); font-weight:700}
+  .btn{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; min-height:56px; padding:12px 18px;
+    border-radius:999px; font-size:15px; font-weight:700; letter-spacing:.1em;
+    transition:transform .14s ease, box-shadow .14s ease, background .14s ease;
+  }
+  .btn:active{transform:translateY(2px) scale(.996)}
+  .btn-primary{
+    color:#fffdf8;
+    background:linear-gradient(180deg,#2f75b7 0%, var(--sea) 58%, #174a86 100%);
+    border:1px solid rgba(226,201,138,.7);
+    box-shadow:0 16px 30px -18px rgba(31,95,168,.72), 0 6px 14px -10px rgba(31,95,168,.5), inset 0 1px 0 rgba(255,255,255,.32);
+  }
+  .btn-primary:active{box-shadow:0 8px 18px -14px rgba(31,95,168,.6), inset 0 1px 0 rgba(255,255,255,.25)}
+  .btn-ghost{
+    color:var(--sea);
+    background:linear-gradient(180deg,#fffefb,#f8f3e8);
+    border:1px solid rgba(201,163,92,.44);
+    box-shadow:0 8px 18px -14px rgba(61,71,82,.3), inset 0 1px 0 #fff;
+  }
+  .cover-link{text-align:center; margin-top:13px; font-size:12px}
+  .cover-link a{
+    color:var(--sea); text-decoration:none; border-bottom:1px solid rgba(31,95,168,.28);
+    padding-bottom:2px;
+  }
+  .cover-note{text-align:center; font-size:10.5px; color:var(--muted); margin-top:13px; letter-spacing:.04em}
+  .gold-rule{height:1px; background:linear-gradient(90deg,rgba(201,163,92,0),rgba(201,163,92,.55),rgba(201,163,92,0)); margin:14px 0}
+
+  /* ---------- 答题 ---------- */
+  .qtop{
+    position:sticky; top:0; z-index:5;
+    padding:calc(2px + env(safe-area-inset-top)) 2px 12px;
+    background:linear-gradient(180deg, rgba(246,243,236,.97) 0%, rgba(246,243,236,.86) 72%, rgba(246,243,236,0) 100%);
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  }
+  .qtop-row{display:flex; align-items:center; gap:12px}
+  .iconbtn{
+    flex:none; width:42px; height:42px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--sea); background:rgba(255,253,248,.9);
+    border:1px solid rgba(201,163,92,.42);
+    box-shadow:0 8px 16px -12px rgba(61,71,82,.4), inset 0 1px 0 #fff;
+    transition:opacity .2s, transform .14s;
+  }
+  .iconbtn:active{transform:translateY(1px)}
+  .iconbtn:disabled{opacity:.32; box-shadow:none}
+  .iconbtn svg{width:19px; height:19px; display:block}
+  .qmeta{flex:1; min-width:0}
+  .qline{display:flex; align-items:baseline; justify-content:space-between; gap:8px; margin-bottom:7px}
+  .qcount{font-size:11px; font-weight:600; color:var(--muted); letter-spacing:.04em}
+  .qcount b{color:var(--sea); font-size:13px}
+  .qstage{font-size:9px; letter-spacing:.2em; color:var(--gold); font-weight:700; white-space:nowrap}
+  .track{height:3px; border-radius:99px; background:rgba(201,163,92,.2); overflow:hidden}
+  .track i{
+    display:block; height:100%; width:0%; border-radius:99px;
+    background:linear-gradient(90deg, var(--gold), var(--gold-2));
+    box-shadow:0 0 8px rgba(226,201,138,.7);
+    transition:width .36s cubic-bezier(.3,.1,.2,1);
+  }
+  .qbody{flex:1; padding:14px 0 6px; display:flex; flex-direction:column}
+  .qcard{
+    position:relative;
+    background:linear-gradient(180deg, rgba(255,253,248,.97), rgba(255,252,245,.94));
+    border:1px solid var(--line-soft);
+    border-radius:26px;
+    padding:22px 18px 20px;
+    box-shadow:var(--shadow), inset 0 1px 0 #fff;
+  }
+  .qeyebrow{
+    display:inline-flex; align-items:center; gap:7px;
+    font-size:9.5px; font-weight:700; letter-spacing:.2em; color:var(--gold);
+    margin-bottom:11px;
+  }
+  .qeyebrow::before{content:""; width:14px; height:1px; background:var(--gold)}
+  .qtext{
+    font-family:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    font-size:21px; line-height:1.55; font-weight:700; letter-spacing:.01em;
+    color:var(--ink); margin-bottom:8px;
+  }
+  .hint{font-size:12px; color:var(--muted); line-height:1.75; margin-bottom:18px}
+  .opts{display:flex; flex-direction:column; gap:10px}
+  .opt{
+    display:flex; align-items:flex-start; gap:12px; width:100%; min-width:0;
+    text-align:left; padding:14px 15px;
+    border-radius:18px;
+    background:linear-gradient(180deg,#fffdf8 0%, #f8f4ea 100%);
+    border:1px solid rgba(201,163,92,.30);
+    box-shadow:0 10px 20px -17px rgba(61,71,82,.4), inset 0 1px 0 #fff;
+    transition:border-color .18s, background .18s, box-shadow .18s, transform .12s;
+  }
+  .opt:active{transform:translateY(1px)}
+  .opt.sel{
+    border-color:var(--gold);
+    background:linear-gradient(180deg,#fdf8e9 0%, #edf4fa 100%);
+    box-shadow:0 0 0 2px rgba(226,201,138,.32), 0 14px 24px -18px rgba(31,95,168,.42), inset 0 1px 0 #fff;
+  }
+  .opt-letter{
+    flex:none; width:27px; height:27px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Songti SC","STSong",serif; font-size:12px; color:var(--gold);
+    border:1px solid rgba(201,163,92,.5); background:#fffdf8;
+    transition:background .18s, color .18s, border-color .18s;
+  }
+  .opt.sel .opt-letter{background:var(--gold); color:#fffdf8; border-color:var(--gold)}
+  .opt-text{flex:1; min-width:0; font-size:14.5px; line-height:1.65; color:var(--ink)}
+  .qfoot{text-align:center; font-size:10.5px; color:var(--muted); letter-spacing:.05em; padding-top:16px; margin-top:auto}
+
+  /* ---------- 求问加载 ---------- */
+  .loading-wrap{flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px 8px}
+  .loading-emblem{position:relative; width:136px; height:136px; display:flex; align-items:center; justify-content:center; margin-bottom:22px}
+  .loading-emblem::before{
+    content:""; position:absolute; inset:0; border-radius:50%;
+    border:1px solid rgba(201,163,92,.22);
+    border-top-color:var(--gold); border-right-color:rgba(226,201,138,.75);
+    animation:ringSpin 1.5s linear infinite;
+  }
+  .load-coin{width:94px; height:94px; animation:coinPulse 1.3s ease-in-out infinite}
+  .load-branch{position:absolute; width:34px; height:86px; opacity:.55; bottom:-4px}
+  .load-branch.left{left:-8px; transform:scaleX(-1)}
+  .load-branch.right{right:-8px}
+  .loading-title{font-family:"Songti SC","STSong","Noto Serif SC",serif; font-size:22px; font-weight:700; letter-spacing:.02em}
+  .loading-sub{font-size:12px; color:var(--muted); margin-top:9px; letter-spacing:.05em}
+  .loading-bar{width:150px; height:3px; border-radius:99px; background:rgba(201,163,92,.18); margin-top:24px; overflow:hidden}
+  .loading-bar i{
+    display:block; width:45%; height:100%; border-radius:99px;
+    background:linear-gradient(90deg, rgba(201,163,92,0), var(--gold-2), var(--gold));
+    animation:shimmer 1.2s linear infinite;
+  }
+
+  /* ---------- 结果 ---------- */
+  .report{display:flex; flex-direction:column; gap:13px; padding-top:2px}
+  .report-card{
+    position:relative;
+    background:linear-gradient(180deg, rgba(255,253,248,.97), rgba(255,252,245,.94));
+    border:1px solid var(--line-soft);
+    border-radius:24px;
+    padding:20px 18px;
+    box-shadow:var(--shadow), inset 0 1px 0 #fff;
+    overflow:hidden;
+  }
+  .hero-card{
+    text-align:center; padding:24px 18px 22px;
+    border-color:rgba(201,163,92,.42);
+    background:
+      radial-gradient(ellipse 80% 56% at 50% 0%, rgba(226,201,138,.16), rgba(226,201,138,0) 66%),
+      linear-gradient(180deg, #fffdf8, #fdf9ee);
+  }
+  .hero-kicker{font-size:9px; font-weight:700; letter-spacing:.26em; color:var(--gold); text-transform:uppercase}
+  .coin-stage{display:flex; align-items:center; justify-content:center; gap:1px; margin:5px 0 -2px}
+  .coin-halo{position:relative; width:112px; height:112px; display:flex; align-items:center; justify-content:center}
+  .coin-halo::before{
+    content:""; position:absolute; inset:4px; border-radius:50%;
+    background:radial-gradient(circle, rgba(226,201,138,.30), rgba(226,201,138,0) 68%);
+    animation:coinPulse 2.8s ease-in-out infinite;
+  }
+  .coin-big{position:relative; width:100px; height:100px; z-index:1; filter:drop-shadow(0 10px 14px rgba(154,118,55,.24))}
+  .branch{width:52px; height:92px; opacity:.62; flex:none}
+  .coin-stage .branch:last-child{transform:scaleX(-1)}
+  .type-no{font-family:"Songti SC","STSong",serif; font-size:11px; letter-spacing:.3em; color:var(--gold); font-weight:700; margin-top:2px}
+  .type-cn{
+    font-family:"Songti SC","STSong","Noto Serif SC","Source Han Serif SC","SimSun",serif;
+    font-size:clamp(42px,12vw,54px); line-height:1.15; font-weight:700; letter-spacing:.06em;
+    color:var(--ink); margin:2px 0 1px;
+  }
+  .type-en{font-size:10px; font-weight:700; letter-spacing:.42em; color:var(--sea-2); text-indent:.42em}
+  .type-title{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px;
+    margin-top:10px; font-size:14.5px; font-weight:700; color:var(--sea);
+  }
+  .title-dot{width:4px; height:4px; border-radius:50%; background:var(--gold); flex:none}
+  .type-tagline{font-weight:400; color:var(--ink-2); font-size:13px; letter-spacing:.04em}
+  .relic-chip{
+    display:inline-flex; align-items:center; gap:8px;
+    margin-top:14px; padding:7px 15px; border-radius:999px;
+    font-size:12px; font-weight:600; color:var(--ink-2);
+    background:#fffdf8; border:1px solid rgba(201,163,92,.4);
+    box-shadow:0 6px 14px -12px rgba(61,71,82,.4), inset 0 1px 0 #fff;
+  }
+  .relic-label{font-size:9px; letter-spacing:.18em; color:var(--gold); font-weight:700}
+  .sec-label{
+    display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+    padding-bottom:9px; margin-bottom:12px;
+    border-bottom:1px solid rgba(201,163,92,.20);
+    font-size:12px; font-weight:700; letter-spacing:.16em; color:var(--sea);
+  }
+  .sec-label span{font-size:8.5px; letter-spacing:.22em; color:var(--gold); font-weight:600}
+  .temple-text{
+    font-family:"Songti SC","STSong","Noto Serif SC",serif;
+    font-size:16px; line-height:1.95; color:var(--ink); letter-spacing:.02em;
+  }
+  .idx-row{margin-bottom:13px}
+  .idx-row:last-of-type{margin-bottom:6px}
+  .idx-head{display:flex; align-items:baseline; justify-content:space-between; margin-bottom:6px}
+  .idx-name{font-size:12.5px; font-weight:600; color:var(--ink-2); letter-spacing:.06em}
+  .idx-en{font-size:9px; letter-spacing:.12em; color:var(--muted); font-weight:400}
+  .idx-val{font-family:"Songti SC","STSong",serif; font-size:16px; font-weight:700; color:var(--sea)}
+  .idx-track{height:7px; border-radius:99px; background:#f0ebdd; overflow:hidden}
+  .idx-track i{display:block; height:100%; border-radius:99px}
+  .idx-control i{background:linear-gradient(90deg,#9cc5e3,var(--sea))}
+  .idx-empathy i{background:linear-gradient(90deg,#dca68e,var(--terra))}
+  .idx-chaos i{background:linear-gradient(90deg,#aeb884,var(--olive))}
+  .index-note{font-size:10.5px; color:var(--muted); margin-top:12px; letter-spacing:.04em}
+  .oracle-card{background:linear-gradient(180deg,#fffdf8,#fdf8eb)}
+  .oracle-text{
+    font-family:"Songti SC","STSong","Noto Serif SC",serif;
+    font-size:15.5px; line-height:2.05; color:var(--ink); letter-spacing:.02em;
+    text-align:justify;
+  }
+  .oracle-text::first-letter{font-size:1.35em; color:var(--sea)}
+  .oracle-sign{
+    margin-top:14px; padding-top:11px; border-top:1px dashed rgba(201,163,92,.32);
+    text-align:right; font-size:9.5px; letter-spacing:.2em; color:var(--gold);
+  }
+  .nemesis-card{background:linear-gradient(180deg,#fffdf8,#fbf1ec)}
+  .nemesis-label{color:var(--terra)}
+  .nem-row{display:flex; align-items:center; justify-content:space-between; gap:12px}
+  .nem-name{font-family:"Songti SC","STSong",serif; font-size:20px; font-weight:700; color:var(--terra)}
+  .nem-name span{font-family:"PingFang SC","Microsoft YaHei",sans-serif; font-size:11px; color:var(--ink-2); font-weight:400; margin-left:7px}
+  .nem-en{font-size:9px; letter-spacing:.26em; color:var(--muted); margin-top:3px}
+  .nem-vs{
+    flex:none; width:34px; height:34px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Songti SC","STSong",serif; font-size:10px; font-weight:700; color:#fffdf8;
+    background:linear-gradient(180deg,#d07c58,var(--terra));
+    box-shadow:0 6px 14px -10px rgba(196,98,63,.7), inset 0 1px 0 rgba(255,255,255,.3);
+  }
+  .nem-why{margin-top:12px; font-size:13.5px; line-height:1.8; color:var(--ink-2)}
+  .bless-card{
+    position:relative; text-align:center; padding:26px 20px 24px;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(226,201,138,.18), rgba(226,201,138,0) 70%),
+      linear-gradient(180deg,#fffdf8,#fbf4e4);
+    border:1px solid rgba(201,163,92,.44);
+    border-radius:24px;
+    box-shadow:var(--shadow), inset 0 1px 0 #fff;
+  }
+  .bless-seal{
+    width:46px; height:46px; margin:0 auto 9px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Songti SC","STSong",serif; font-size:19px; color:var(--gold);
+    border:1px solid var(--gold);
+    box-shadow:0 0 0 4px #fffdf8, 0 0 0 5px rgba(201,163,92,.30), 0 8px 16px -12px rgba(154,118,55,.5);
+  }
+  .bless-label{font-size:9px; letter-spacing:.26em; color:var(--gold); font-weight:700; text-transform:uppercase}
+  .bless-text{
+    font-family:"Songti SC","STSong","Noto Serif SC",serif;
+    font-size:19px; line-height:1.85; color:var(--ink); font-weight:700; letter-spacing:.03em;
+    margin-top:8px;
+  }
+  .guide-list{list-style:none; padding:0; margin:0}
+  .guide-list li{display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-top:1px dashed rgba(201,163,92,.26)}
+  .guide-list li:first-child{border-top:none; padding-top:2px}
+  .guide-no{flex:none; font-family:"Songti SC","STSong",serif; font-size:11px; letter-spacing:.1em; color:var(--gold); padding-top:2px}
+  .guide-list p{font-size:13.5px; line-height:1.8; color:var(--ink-2)}
+  .aff-row{
+    display:grid; grid-template-columns:26px 1fr 40px; gap:10px; align-items:center;
+    padding:8px 8px; margin:0 -8px; border-radius:12px;
+  }
+  .aff-row.now{background:linear-gradient(90deg, rgba(226,201,138,.20), rgba(226,201,138,.05))}
+  .aff-rank{font-family:"Songti SC","STSong",serif; font-size:10px; color:var(--gold); text-align:center}
+  .aff-main{min-width:0}
+  .aff-name{display:flex; align-items:baseline; gap:7px; margin-bottom:5px; min-width:0}
+  .aff-name b{font-size:13px; color:var(--ink); white-space:nowrap}
+  .aff-name span{font-size:10px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .aff-track{height:5px; border-radius:99px; background:#f0ebdd; overflow:hidden}
+  .aff-track i{display:block; height:100%; border-radius:99px; background:linear-gradient(90deg,var(--sea-2),var(--sea))}
+  .aff-row.now .aff-track i{background:linear-gradient(90deg,var(--gold-2),var(--gold))}
+  .aff-pct{font-family:"Songti SC","STSong",serif; font-size:12px; color:var(--sea); text-align:right}
+  .share-preview{
+    font-size:11.5px; line-height:1.8; color:var(--ink-2);
+    background:#fbf8ef; border:1px dashed rgba(201,163,92,.34); border-radius:14px;
+    padding:11px 13px; margin-bottom:13px; word-break:break-word;
+  }
+  .disclaimer{text-align:center; font-size:10px; color:var(--muted); letter-spacing:.06em; padding:4px 0 0}
+  .result-actions{display:flex; flex-direction:column; gap:9px; margin-top:4px}
+  .cross-link{text-align:center; font-size:11.5px; padding:8px 0 4px}
+  .cross-link a{color:var(--sea); text-decoration:none; border-bottom:1px solid rgba(31,95,168,.26); padding-bottom:2px}
+  .toast{
+    position:fixed; left:50%; bottom:calc(26px + env(safe-area-inset-bottom)); z-index:30;
+    transform:translate(-50%,12px); opacity:0; pointer-events:none;
+    background:rgba(34,48,63,.92); color:#fffdf8; font-size:12px; letter-spacing:.05em;
+    padding:9px 18px; border-radius:999px; transition:opacity .22s, transform .22s;
+    box-shadow:0 14px 30px -18px rgba(0,0,0,.5);
+  }
+  .toast.on{opacity:1; transform:translate(-50%,0)}
+
+  @media (max-width:360px){
+    .cover-card{padding:22px 17px 18px}
+    .qcard{padding:18px 14px 16px}
+    .qtext{font-size:19px}
+    .opt{padding:12px 13px}
+    .opt-text{font-size:13.5px}
+    .branch{width:42px; height:76px}
+    .coin-halo{width:96px; height:96px}
+    .coin-big{width:86px; height:86px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important; transition:none !important}
+  }
+</style>
+</head>
+<body>
+<!-- 共享图形定义：神谕币 / 月桂枝 -->
+<svg width="0" height="0" style="position:absolute; left:-9999px" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="stoneGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf8"/><stop offset=".62" stop-color="#f5efe1"/><stop offset="1" stop-color="#e9dfca"/>
+    </linearGradient>
+    <linearGradient id="stoneSideGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ece3d0"/><stop offset=".5" stop-color="#fcf8ee"/><stop offset="1" stop-color="#e2d8c1"/>
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4e4ba"/><stop offset=".42" stop-color="#e2c98a"/><stop offset=".72" stop-color="#c9a35c"/><stop offset="1" stop-color="#a67f3f"/>
+    </linearGradient>
+    <linearGradient id="oliveGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#93a06a"/><stop offset="1" stop-color="#6f7f4a"/>
+    </linearGradient>
+    <radialGradient id="haloGrad" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#e2c98a" stop-opacity=".5"/><stop offset="1" stop-color="#e2c98a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <symbol id="oracleCoin" viewBox="0 0 120 120">
+    <circle cx="60" cy="60" r="52" fill="url(#goldGrad)"/>
+    <circle cx="60" cy="60" r="46" fill="none" stroke="#fff7e2" stroke-opacity=".72" stroke-width="2"/>
+    <circle cx="60" cy="60" r="42" fill="none" stroke="#7d5a27" stroke-opacity=".34" stroke-width="1"/>
+    <g stroke="#6b4c1f" stroke-opacity=".55" stroke-width="1.25" stroke-linecap="round">
+      <line x1="60" y1="24" x2="60" y2="31"/>
+      <line x1="60" y1="89" x2="60" y2="96"/>
+      <line x1="24" y1="60" x2="31" y2="60"/>
+      <line x1="89" y1="60" x2="96" y2="60"/>
+      <line x1="35" y1="35" x2="40" y2="40"/>
+      <line x1="80" y1="80" x2="85" y2="85"/>
+      <line x1="85" y1="35" x2="80" y2="40"/>
+      <line x1="40" y1="80" x2="35" y2="85"/>
+      <line x1="44" y1="27" x2="48" y2="33"/>
+      <line x1="72" y1="87" x2="76" y2="93"/>
+      <line x1="76" y1="27" x2="72" y2="33"/>
+      <line x1="48" y1="87" x2="44" y2="93"/>
+    </g>
+    <path d="M36 60 Q48 45 60 45 Q72 45 84 60 Q72 75 60 75 Q48 75 36 60 Z" fill="none" stroke="#5c4117" stroke-width="1.8"/>
+    <circle cx="60" cy="60" r="7" fill="#5c4117"/>
+    <circle cx="62.4" cy="57.4" r="2" fill="#fff7e2"/>
+    <path d="M31 77 Q60 96 89 77" fill="none" stroke="#6b4c1f" stroke-opacity=".6" stroke-width="1.3"/>
+    <g fill="#6b4c1f" fill-opacity=".55">
+      <ellipse cx="38" cy="85" rx="3.2" ry="6" transform="rotate(-38 38 85)"/>
+      <ellipse cx="46" cy="90" rx="3.2" ry="6" transform="rotate(-16 46 90)"/>
+      <ellipse cx="56" cy="92" rx="3.2" ry="6" transform="rotate(-4 56 92)"/>
+      <ellipse cx="66" cy="91" rx="3.2" ry="6" transform="rotate(8 66 91)"/>
+      <ellipse cx="75" cy="87" rx="3.2" ry="6" transform="rotate(24 75 87)"/>
+      <ellipse cx="83" cy="81" rx="3.2" ry="6" transform="rotate(40 83 81)"/>
+    </g>
+  </symbol>
+  <symbol id="laurelBranch" viewBox="0 0 100 160">
+    <path d="M84 154 C64 132 48 108 40 78 C34 54 38 32 52 10" fill="none" stroke="url(#oliveGrad)" stroke-width="2.4" stroke-linecap="round"/>
+    <g fill="url(#oliveGrad)">
+      <ellipse cx="75" cy="141" rx="11" ry="4" transform="rotate(-22 75 141)"/>
+      <ellipse cx="64" cy="128" rx="11" ry="4" transform="rotate(-38 64 128)"/>
+      <ellipse cx="70" cy="119" rx="10.5" ry="4" transform="rotate(28 70 119)"/>
+      <ellipse cx="56" cy="108" rx="11" ry="4" transform="rotate(-44 56 108)"/>
+      <ellipse cx="62" cy="99" rx="10.5" ry="4" transform="rotate(22 62 99)"/>
+      <ellipse cx="49" cy="87" rx="10.5" ry="4" transform="rotate(-50 49 87)"/>
+      <ellipse cx="55" cy="78" rx="10" ry="4" transform="rotate(32 55 78)"/>
+      <ellipse cx="43" cy="65" rx="10.5" ry="4" transform="rotate(-56 43 65)"/>
+      <ellipse cx="49" cy="57" rx="9.5" ry="3.8" transform="rotate(38 49 57)"/>
+      <ellipse cx="39" cy="43" rx="10" ry="4" transform="rotate(-62 39 43)"/>
+      <ellipse cx="46" cy="34" rx="9" ry="3.6" transform="rotate(44 46 34)"/>
+      <ellipse cx="44" cy="22" rx="8.5" ry="3.4" transform="rotate(-72 44 22)"/>
+    </g>
+  </symbol>
+</svg>
+
+<div class="app">
+  <!-- 封面 -->
+  <section class="screen screen-in" id="screen-cover">
+    <div class="cover-wrap">
+      <div class="cover-card">
+        <div class="kicker">Delphic Oracle</div>
+        <h1 class="cover-title">你是古希腊的<br><em>哪位神</em>？</h1>
+        <p class="cover-sub">八位神祇已在山顶落座。8 个最离谱的瞬间，够德尔斐认出你是谁。</p>
+        <div class="cover-art" aria-hidden="true">
+          <svg class="temple-svg" viewBox="0 0 360 300" role="img" aria-label="德尔斐神殿与神谕币">
+            <circle cx="180" cy="178" r="100" fill="url(#haloGrad)"/>
+            <polygon points="180,24 40,112 320,112" fill="url(#stoneGrad)" stroke="url(#goldGrad)" stroke-width="1.6"/>
+            <polygon points="180,44 62,106 298,106" fill="#f8f1df" stroke="rgba(201,163,92,.55)" stroke-width="1"/>
+            <circle cx="180" cy="82" r="10" fill="none" stroke="url(#goldGrad)" stroke-width="1.5"/>
+            <circle cx="180" cy="82" r="3.2" fill="url(#goldGrad)"/>
+            <rect x="48" y="112" width="264" height="20" rx="3" fill="url(#stoneSideGrad)" stroke="rgba(201,163,92,.55)" stroke-width="1"/>
+            <line x1="54" y1="122" x2="306" y2="122" stroke="rgba(201,163,92,.32)" stroke-width="1"/>
+            <g fill="url(#stoneSideGrad)" stroke="rgba(201,163,92,.4)" stroke-width="1">
+              <rect x="62" y="132" width="36" height="9" rx="2"/>
+              <rect x="66" y="141" width="28" height="84" rx="4"/>
+              <rect x="62" y="225" width="36" height="8" rx="2"/>
+              <rect x="122" y="132" width="36" height="9" rx="2"/>
+              <rect x="126" y="141" width="28" height="84" rx="4"/>
+              <rect x="122" y="225" width="36" height="8" rx="2"/>
+              <rect x="182" y="132" width="36" height="9" rx="2"/>
+              <rect x="186" y="141" width="28" height="84" rx="4"/>
+              <rect x="182" y="225" width="36" height="8" rx="2"/>
+              <rect x="242" y="132" width="36" height="9" rx="2"/>
+              <rect x="246" y="141" width="28" height="84" rx="4"/>
+              <rect x="242" y="225" width="36" height="8" rx="2"/>
+            </g>
+            <g stroke="rgba(154,140,112,.34)" stroke-width="1">
+              <line x1="74" y1="150" x2="74" y2="218"/><line x1="80" y1="150" x2="80" y2="218"/><line x1="86" y1="150" x2="86" y2="218"/>
+              <line x1="134" y1="150" x2="134" y2="218"/><line x1="140" y1="150" x2="140" y2="218"/><line x1="146" y1="150" x2="146" y2="218"/>
+              <line x1="194" y1="150" x2="194" y2="218"/><line x1="200" y1="150" x2="200" y2="218"/><line x1="206" y1="150" x2="206" y2="218"/>
+              <line x1="254" y1="150" x2="254" y2="218"/><line x1="260" y1="150" x2="260" y2="218"/><line x1="266" y1="150" x2="266" y2="218"/>
+            </g>
+            <g fill="url(#stoneGrad)" stroke="rgba(201,163,92,.34)" stroke-width="1">
+              <rect x="44" y="233" width="272" height="10" rx="3"/>
+              <rect x="34" y="243" width="292" height="11" rx="4"/>
+              <rect x="24" y="254" width="312" height="12" rx="5"/>
+            </g>
+            <g class="cover-coin">
+              <use href="#oracleCoin" x="129" y="133" width="102" height="102"/>
+            </g>
+            <g opacity=".7">
+              <use href="#laurelBranch" x="8" y="124" width="58" height="128"/>
+            </g>
+            <g opacity=".7" transform="translate(360,0) scale(-1,1)">
+              <use href="#laurelBranch" x="8" y="124" width="58" height="128"/>
+            </g>
+            <g stroke="url(#goldGrad)" stroke-width="1.1" stroke-linecap="round" opacity=".65">
+              <path d="M300 44 v10 M295 49 h10"/>
+              <path d="M61 54 v8 M57 58 h8"/>
+              <path d="M318 214 v7 M314.5 217.5 h7"/>
+            </g>
+          </svg>
+        </div>
+        <p class="cover-desc">不用思考“我应该像谁”。凭直觉选那个你第一眼想做的动作，神谕会自己认出你。</p>
+        <div class="facts">
+          <span class="fact"><b>8</b> 道情境</span>
+          <span class="fact">约 <b>2</b> 分钟</span>
+          <span class="fact">专属神谕报告</span>
+        </div>
+        <button class="btn btn-primary" id="startBtn" type="button">开始求问德尔斐</button>
+        <div class="cover-link"><a href="greek-god-quiz.html">想看完整版？挑战 18 题 →</a></div>
+        <p class="cover-note">娱乐向 · 神谕不构成预言或心理诊断</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 答题 -->
+  <section class="screen" id="screen-quiz" hidden>
+    <div class="qtop">
+      <div class="qtop-row">
+        <button class="iconbtn" id="backBtn" type="button" aria-label="返回上一题">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5 8 12l6.5 6.5"/></svg>
+        </button>
+        <div class="qmeta">
+          <div class="qline">
+            <span class="qcount">第 <b id="qNow">1</b> / <span id="qTotal">8</span> 题</span>
+            <span class="qstage">DELPHIC ORACLE</span>
+          </div>
+          <div class="track" role="progressbar" aria-label="答题进度"><i id="progressFill"></i></div>
+        </div>
+      </div>
+    </div>
+    <div class="qbody">
+      <div class="qcard">
+        <div class="qeyebrow" id="qEyebrow">情境 NO.01</div>
+        <h2 class="qtext" id="qText"></h2>
+        <p class="hint" id="qHint"></p>
+        <div class="opts" id="opts"></div>
+      </div>
+      <div class="qfoot">选择后自动进入下一题 · 可随时返回修改</div>
+    </div>
+  </section>
+
+  <!-- 求问加载 -->
+  <section class="screen" id="screen-loading" hidden>
+    <div class="loading-wrap">
+      <div class="loading-emblem">
+        <svg class="load-branch left" viewBox="0 0 100 160" aria-hidden="true"><use href="#laurelBranch"/></svg>
+        <svg class="load-coin" viewBox="0 0 120 120" aria-hidden="true"><use href="#oracleCoin"/></svg>
+        <svg class="load-branch right" viewBox="0 0 100 160" aria-hidden="true"><use href="#laurelBranch"/></svg>
+      </div>
+      <h2 class="loading-title">正在向德尔斐求问…</h2>
+      <p class="loading-sub">神谕正在翻阅你留下的每一个选择</p>
+      <div class="loading-bar"><i></i></div>
+    </div>
+  </section>
+
+  <!-- 结果 -->
+  <section class="screen" id="screen-result" hidden>
+    <div class="report" id="resultRoot"></div>
+  </section>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- 题库与计分（纯数据，便于测试） -->
+<script>
+(function(root){
+  'use strict';
+
+  var ORDER = ['zeus','athena','apollo','aphrodite','ares','hermes','artemis','dionysus'];
+
+  var TYPES = {
+    zeus:{
+      key:'zeus', no:'01', cn:'宙斯', en:'ZEUS', title:'雷霆之王', tagline:'天生要扛事', relic:'雷霆',
+      temple:'你的神殿在奥林匹斯最高的那层云上，门口永远排着等你签字的人和等你拍板的事。',
+      oracle:'你习惯在事情乱掉的瞬间站出来，把责任和场面一起接住。别人看见的是气场，你自己知道那是不能塌的那口气。你擅长定方向、压住场、让所有人有主心骨；代价是你很少允许自己说“我不行”。你的可靠，是别人敢往前冲的理由。你不是不会累，只是把累调成了静音。',
+      idx:{control:92, empathy:54, chaos:38},
+      nemesis:'ares',
+      nemesisWhy:'他要的是开打，你要的是控场；他一冲，你的秩序就碎了一地。',
+      bless:'愿你扛得起山，也放得下那口气。',
+      guide:[
+        '今天有一件小事，故意让别人拍板，你只负责点头。',
+        '找一个不解决问题的人，聊十分钟废话。',
+        '在日程里写一行“什么都不管”，并且真的执行。'
+      ]
+    },
+    athena:{
+      key:'athena', no:'02', cn:'雅典娜', en:'ATHENA', title:'灰眼谋士', tagline:'永远先想三步', relic:'猫头鹰',
+      temple:'你的神殿是一座安静的图书馆，每本书里都夹着你写满批注的纸条。',
+      oracle:'你在任何局面里都会先退半步，看清结构再落子。别人还在情绪里，你已经把风险、退路和第三条路都摆好了。你擅长判断、拆解和兜底，讨厌无脑冲动，也不轻易被热闹带走。代价是你太早看见结局，偶尔显得疏离。你的冷静不是没有感情，是感情被你放在了更后面。',
+      idx:{control:86, empathy:48, chaos:21},
+      nemesis:'dionysus',
+      nemesisWhy:'你把一切算清楚，他一句“管他呢”就把棋盘掀了。',
+      bless:'愿你想得明白，也偶尔允许自己不明白。',
+      guide:[
+        '今天做一件没查过攻略的事，允许自己走错。',
+        '有人向你倾诉时，先不给方案，只说“我在”。',
+        '把脑子里那场会议推迟十五分钟，先吃口热的。'
+      ]
+    },
+    apollo:{
+      key:'apollo', no:'03', cn:'阿波罗', en:'APOLLO', title:'光明之神', tagline:'才华即人格', relic:'月桂',
+      temple:'你的神殿建在山坡的向阳面，每一根柱子都经过三次返工。',
+      oracle:'你把自己活成了一件作品，表达、审美和体面都是你的骨头。你希望被看见的不是努力，而是那个刚刚好的结果。你擅长把混乱整理成光，把感受说成句子，让旁人觉得一切都有救。代价是你对被否定格外敏感，一句“还行”能在你心里回响很久。你不是脆弱，你只是把自己放得太亮。',
+      idx:{control:74, empathy:62, chaos:43},
+      nemesis:'hermes',
+      nemesisWhy:'你打磨一句话，他三秒换一个说法；你的完美在他那里像慢动作。',
+      bless:'愿你的光被看见，也愿你允许自己不必发光。',
+      guide:[
+        '今天发一条不修图、不改字的内容。',
+        '挑一件做得“够好”而不是“最好”的事，直接交。',
+        '把别人一句普通评价，原样听进去，不翻译成否定。'
+      ]
+    },
+    aphrodite:{
+      key:'aphrodite', no:'04', cn:'阿佛洛狄忒', en:'APHRODITE', title:'爱欲之神', tagline:'关系是你的主场', relic:'玫瑰',
+      temple:'你的神殿临海，门口没有守卫，只有一面镜子和一柜子别人落下的心事。',
+      oracle:'你天生知道怎么让空气变软：一个眼神、一句玩笑、一次恰到好处的靠近。你在关系里如鱼得水，能读懂别人没说出口的那半句。你擅长连接、升温、让人觉得自己特别。代价是你也容易被情绪牵走，把别人的波动当成自己的天气。你不是离不开人，你只是太容易把人放进心里。',
+      idx:{control:58, empathy:95, chaos:66},
+      nemesis:'artemis',
+      nemesisWhy:'你想再靠近一点，她要再退后一步；你的热烈在她那里无处安放。',
+      bless:'愿你所爱有回应，也愿你先把自己抱稳。',
+      guide:[
+        '今天把一条准备发给别人的消息，先发给自己。',
+        '拒绝一次不想去的局，不用编理由。',
+        '生气时先等二十分钟，再决定要不要说。'
+      ]
+    },
+    ares:{
+      key:'ares', no:'05', cn:'阿瑞斯', en:'ARES', title:'战神', tagline:'先冲再想', relic:'长矛',
+      temple:'你的神殿没有门，只有一面被撞出凹痕的墙。',
+      oracle:'你相信事情是打出来的，不是想出来的。冲突来了，你第一反应是站起来，而不是绕开。你直率、热血、扛得住正面，也愿意为在乎的人冲在前面。你擅长破局、推进、把停滞的局面撞开一个口子。代价是你常常先受伤，再学会收力。你不是莽，你只是把真心放在了最快的速度上。',
+      idx:{control:61, empathy:45, chaos:88},
+      nemesis:'athena',
+      nemesisWhy:'你已经在打了，她还在画第三步；她的冷静让你觉得自己被看穿。',
+      bless:'愿你锋刃所向皆值得，也愿你学会在出手前呼吸。',
+      guide:[
+        '今天遇到想反驳的话，先数三秒再开口。',
+        '把一件想立刻做的事，写在纸上放一晚。',
+        '找个人说一句“其实我也有点怕”，不用马上补一句硬话。'
+      ]
+    },
+    hermes:{
+      key:'hermes', no:'06', cn:'赫尔墨斯', en:'HERMES', title:'神使', tagline:'万物皆可周旋', relic:'翼鞋',
+      temple:'你的神殿是山脚的一间中转站，桌上永远有三杯没喝完的茶。',
+      oracle:'你脑子里的窗口永远开着十几个，消息、点子、人情都能接住。你反应快、转得快，能在规则缝里找到路，也能让尴尬在一句话里落地。你擅长连接资源、活跃气氛、把死局谈成活局。代价是热度来得快去得也快，抽屉里躺着不少只差最后一步的事。你不是不靠谱，你只是舍不得错过任何可能。',
+      idx:{control:69, empathy:71, chaos:82},
+      nemesis:'apollo',
+      nemesisWhy:'你三秒一个版本，他三天磨一句话；他的标准让你总像在交半成品。',
+      bless:'愿你跑得远，也有一件事值得你停下来。',
+      guide:[
+        '今天只开一个聊天窗口，把一件事回完。',
+        '删掉一个“以后可能用得上”的计划，给现在的自己腾地方。',
+        '把手机反扣十分钟，看看世界会不会也照样转。'
+      ]
+    },
+    artemis:{
+      key:'artemis', no:'07', cn:'阿尔忒弥斯', en:'ARTEMIS', title:'月与猎', tagline:'边界感即尊严', relic:'银弓',
+      temple:'你的神殿在林线以上，只有月光、松针和你自己踩出来的小路。',
+      oracle:'你需要空间，就像需要空气。人一靠近，你先感觉的不是亲近，而是边界有没有被碰到。你独立、清醒，能在安静里恢复，也能在关键时刻一箭命中。你擅长独处、判断、守住自己的节奏。代价是你把“不麻烦别人”练成了铠甲，连想念都说得像告辞。你不是冷，你只是把热留给非常少的人。',
+      idx:{control:72, empathy:57, chaos:26},
+      nemesis:'aphrodite',
+      nemesisWhy:'她要的是再靠近一点，你要的是再退后一步；她的热烈让你无处安放。',
+      bless:'愿你的森林永远安静，也愿有人获准走进去。',
+      guide:[
+        '今天主动给一个人发消息，不用等对方先开口。',
+        '留半小时独处，但把门虚掩着。',
+        '有人关心你时，试着回答“我最近确实有点累”，而不是“没事”。'
+      ]
+    },
+    dionysus:{
+      key:'dionysus', no:'08', cn:'狄俄尼索斯', en:'DIONYSUS', title:'酒神', tagline:'活着就要尽兴', relic:'葡萄藤',
+      temple:'你的神殿在半山腰的葡萄园里，门口挂着一块牌子：规矩请放门外。',
+      oracle:'你活着的第一原则是不让日子发霉。你能把普通的一晚过成节日，也能在人群里把情绪点着。你松弛、好玩、感受力强，讨厌被安排、被规训、被要求“正常一点”。你擅长解冻、庆祝、让所有人暂时忘记时间。代价是兴致一上来就刹不住，第二天总要替昨夜的自己收尾。你不是不认真，你只是认真在快乐上。',
+      idx:{control:44, empathy:83, chaos:94},
+      nemesis:'athena',
+      nemesisWhy:'你要的是此刻尽兴，她要的是全局最优；她一算账，你的酒就醒了。',
+      bless:'愿你的杯里总有酒，也愿你记得留一盏灯给明天。',
+      guide:[
+        '今天给自己设一个“尽兴闹钟”，响了三分钟就收。',
+        '做一件无聊但有用的小事，做完再奖励自己。',
+        '把“下次一定”改成具体的时间，约一次真的。'
+      ]
+    }
+  };
+
+  var QUESTIONS = [
+    {
+      tag:'情境 NO.01 · 石像预警',
+      hint:'神谕只说了日期，没说是哪一种石像。',
+      text:'神谕说你下周会变成一尊石像。',
+      opts:[
+        {t:'zeus',v:3,text:'先召集家人开会：这段时间我负责的部分，谁接。'},
+        {t:'athena',v:3,text:'先研究神谕的语法，看看“下周”是不是虚指。'},
+        {t:'apollo',v:3,text:'可以，但雕像的姿势和衣褶必须由我来定。'},
+        {t:'aphrodite',v:3,text:'那这几天得把想见的人都见一遍，抱一下再走。'}
+      ]
+    },
+    {
+      tag:'情境 NO.02 · 雷劈充电线',
+      hint:'雷声之后，屋里突然很安静。',
+      text:'宙斯把你的充电线劈成两段。',
+      opts:[
+        {t:'apollo',v:3,text:'正好，借这件事写一篇《被雷劈中的现代人》。'},
+        {t:'athena',v:3,text:'先测一下断口电压，说不定还能抢救。'},
+        {t:'aphrodite',v:3,text:'发消息给三个人借充电线，顺便聊到半夜。'},
+        {t:'ares',v:3,text:'拎着两截线直接去找宙斯：赔。'}
+      ]
+    },
+    {
+      tag:'情境 NO.03 · 脑内作战会议',
+      hint:'会议室里只有你听得见她说话。',
+      text:'雅典娜在你脑内开了作战会议。',
+      opts:[
+        {t:'athena',v:3,text:'安静听完，指出她第三个方案里没人负责收尾。'},
+        {t:'aphrodite',v:3,text:'先问她：会后有没有聚餐，谁坐我旁边。'},
+        {t:'ares',v:3,text:'会开太久了，我直接问：打谁，几点。'},
+        {t:'hermes',v:3,text:'会开到一半，我已经拉了个群把外援找好了。'}
+      ]
+    },
+    {
+      tag:'情境 NO.04 · 酒神节清醒',
+      hint:'音乐还在响，你却突然听得清每一个字。',
+      text:'你在酒神节上突然清醒。',
+      opts:[
+        {t:'aphrodite',v:3,text:'清醒的这几分钟，刚好够我找到全场最有趣的人。'},
+        {t:'ares',v:3,text:'谁把我灌到这儿来的？走，去找他算账。'},
+        {t:'hermes',v:3,text:'趁清醒把明天的行程、人脉和备用计划都过一遍。'},
+        {t:'artemis',v:3,text:'一个人溜到露台，看月亮，等音乐停。'}
+      ]
+    },
+    {
+      tag:'情境 NO.05 · 月桂冠寄丢',
+      hint:'快递显示已签收，签收人写着“命运”。',
+      text:'月桂冠被快递寄丢了。',
+      opts:[
+        {t:'hermes',v:3,text:'联系客服、查监控，同时下单三顶备用。'},
+        {t:'artemis',v:3,text:'丢了就丢了，我本来也不需要那圈东西证明什么。'},
+        {t:'dionysus',v:3,text:'那就不戴了，头发乱一点也挺好。'},
+        {t:'ares',v:3,text:'自己折一枝戴头上，比那顶更像真的。'}
+      ]
+    },
+    {
+      tag:'情境 NO.06 · 起球毛衣',
+      hint:'毛衣很暖，但袖口已经开始起球。',
+      text:'命运三女神给你织了件起球的毛衣。',
+      opts:[
+        {t:'zeus',v:3,text:'找三女神开个会：质量不过关，返工。'},
+        {t:'hermes',v:3,text:'拆了重织是不可能的，但我可以改成围巾、帽子、杯垫。'},
+        {t:'artemis',v:3,text:'起球的部分剪掉，剩下的穿着，谁也不许碰。'},
+        {t:'dionysus',v:3,text:'起球就起球，穿着睡觉，反正没人看见。'}
+      ]
+    },
+    {
+      tag:'情境 NO.07 · 电梯遇宿敌',
+      hint:'电梯从 1 层到 18 层，刚好够一场无声战争。',
+      text:'你在奥林匹斯山电梯里遇到宿敌。',
+      opts:[
+        {t:'apollo',v:3,text:'在心里给对方的穿搭打分，然后礼貌点头。'},
+        {t:'artemis',v:3,text:'盯着门缝看，把这三十秒过成一个人的电梯。'},
+        {t:'dionysus',v:3,text:'先开口聊天气，让气氛松弛到对方不好意思发火。'},
+        {t:'zeus',v:3,text:'站直一点，先到楼层先出，气势不能输。'}
+      ]
+    },
+    {
+      tag:'情境 NO.08 · 未读变鸽子',
+      hint:'鸽子落在窗台上，每只脚上都绑着一条未读。',
+      text:'赫尔墨斯把你所有未读消息变成鸽子。',
+      opts:[
+        {t:'zeus',v:3,text:'先把最重要的几只按住，工作不能丢。'},
+        {t:'apollo',v:3,text:'挑一只最好看的留下来，教它说“稍后回复”。'},
+        {t:'athena',v:3,text:'数一数多少只，推断我这周被多少人找过。'},
+        {t:'dionysus',v:3,text:'放它们飞走，消息本来就该有去有回。'}
+      ]
+    }
+  ];
+
+  var answers = [];
+
+  function calc(input){
+    var ans = input || answers;
+    var scores = {};
+    var i, j, q, oi, opt, key;
+    for (i = 0; i < ORDER.length; i++) scores[ORDER[i]] = 0;
+    for (q = 0; q < QUESTIONS.length; q++){
+      oi = ans[q];
+      if (oi === undefined || oi === null) continue;
+      opt = QUESTIONS[q].opts[oi];
+      if (!opt) continue;
+      scores[opt.t] += (opt.v || 3);
+    }
+    var winner = ORDER[0], best = -1;
+    for (j = 0; j < ORDER.length; j++){
+      key = ORDER[j];
+      if (scores[key] > best){ best = scores[key]; winner = key; }
+    }
+    return {winner:winner, scores:scores, top:best};
+  }
+
+  root.__quizTest = {ORDER:ORDER, TYPES:TYPES, QUESTIONS:QUESTIONS, answers:answers, calc:calc};
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+
+<!-- 交互与结果渲染 -->
+<script>
+(function(){
+  'use strict';
+
+  var API = window.__quizTest;
+  var QUESTIONS = API.QUESTIONS;
+  var TYPES = API.TYPES;
+  var ORDER = API.ORDER;
+  var answers = API.answers;
+  var total = QUESTIONS.length;
+  var cur = 0;
+  var locked = false;
+  var oracleTimer = null;
+  var shareText = '';
+
+  function $(id){ return document.getElementById(id); }
+  var screens = {
+    cover: $('screen-cover'),
+    quiz: $('screen-quiz'),
+    loading: $('screen-loading'),
+    result: $('screen-result')
+  };
+  var optsBox = $('opts');
+  var backBtn = $('backBtn');
+  var progressFill = $('progressFill');
+  var toastEl = $('toast');
+  var toastTimer = null;
+
+  function showScreen(name){
+    for (var k in screens){
+      if (screens[k]) screens[k].hidden = (k !== name);
+    }
+    var s = screens[name];
+    if (!s) return;
+    s.classList.remove('screen-in');
+    void s.offsetWidth;
+    s.classList.add('screen-in');
+    window.scrollTo(0, 0);
+  }
+
+  function toast(msg){
+    if (!toastEl) return;
+    toastEl.textContent = msg;
+    toastEl.classList.add('on');
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('on'); }, 2000);
+  }
+
+  function progressPct(){
+    var done = cur;
+    var has = answers[cur] !== undefined && answers[cur] !== null;
+    if (has) done = cur + 1;
+    return Math.round(done / total * 100);
+  }
+
+  function updateProgress(){
+    progressFill.style.width = progressPct() + '%';
+  }
+
+  function renderQuestion(){
+    var q = QUESTIONS[cur];
+    if (!q) return;
+    $('qNow').textContent = String(cur + 1);
+    $('qTotal').textContent = String(total);
+    $('qEyebrow').textContent = q.tag;
+    $('qText').textContent = q.text;
+    $('qHint').textContent = q.hint;
+    backBtn.disabled = (cur === 0);
+    optsBox.innerHTML = '';
+    for (var i = 0; i < q.opts.length; i++){
+      (function(index){
+        var o = q.opts[index];
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'opt';
+        b.setAttribute('data-i', String(index));
+        var letter = document.createElement('span');
+        letter.className = 'opt-letter';
+        letter.textContent = 'ABCD'.charAt(index);
+        var txt = document.createElement('span');
+        txt.className = 'opt-text';
+        txt.textContent = o.text;
+        b.appendChild(letter);
+        b.appendChild(txt);
+        if (answers[cur] === index) b.classList.add('sel');
+        b.addEventListener('click', function(){ choose(index); });
+        optsBox.appendChild(b);
+      })(i);
+    }
+    updateProgress();
+  }
+
+  function choose(index){
+    if (locked) return;
+    locked = true;
+    answers[cur] = index;
+    var kids = optsBox.children;
+    for (var i = 0; i < kids.length; i++){
+      if (i === index) kids[i].classList.add('sel');
+      else kids[i].classList.remove('sel');
+    }
+    updateProgress();
+    setTimeout(function(){
+      locked = false;
+      if (cur < total - 1){
+        cur++;
+        renderQuestion();
+      } else {
+        askOracle();
+      }
+    }, 300);
+  }
+
+  function askOracle(){
+    showScreen('loading');
+    if (oracleTimer) clearTimeout(oracleTimer);
+    oracleTimer = setTimeout(function(){
+      oracleTimer = null;
+      var res = API.calc(answers);
+      renderResult(res);
+      showScreen('result');
+    }, 700);
+  }
+
+  function restart(){
+    if (oracleTimer){ clearTimeout(oracleTimer); oracleTimer = null; }
+    answers.length = 0;
+    cur = 0;
+    locked = false;
+    renderQuestion();
+    showScreen('quiz');
+  }
+
+  function backToLast(){
+    if (oracleTimer){ clearTimeout(oracleTimer); oracleTimer = null; }
+    locked = false;
+    cur = total - 1;
+    renderQuestion();
+    showScreen('quiz');
+  }
+
+  function indexRow(name, en, val, cls){
+    return '<div class="idx-row ' + cls + '">' +
+      '<div class="idx-head"><span class="idx-name">' + name + '<span class="idx-en"> / ' + en + '</span></span><span class="idx-val">' + val + '%</span></div>' +
+      '<div class="idx-track"><i style="width:' + val + '%"></i></div>' +
+    '</div>';
+  }
+
+  function buildShare(type){
+    var link = (typeof location !== 'undefined' ? location.href : '').split('#')[0];
+    return '【德尔斐神谕】我是 NO.' + type.no + ' ' + type.cn + ' ' + type.en + ' · ' + type.title + '，' + type.tagline +
+      '。神性指数：掌控力 ' + type.idx.control + ' / 共情力 ' + type.idx.empathy + ' / 混乱度 ' + type.idx.chaos +
+      '。宿敌：' + TYPES[type.nemesis].cn + '。' + type.bless + ' 你是古希腊的哪位神？ ' + link;
+  }
+
+  function renderResult(res){
+    var winner = res.winner;
+    var type = TYPES[winner];
+    var nem = TYPES[type.nemesis];
+
+    var appear = {};
+    var maxScore = {};
+    var i, k;
+    for (i = 0; i < ORDER.length; i++){ appear[ORDER[i]] = 0; maxScore[ORDER[i]] = 1; }
+    for (i = 0; i < QUESTIONS.length; i++){
+      for (var j = 0; j < QUESTIONS[i].opts.length; j++){
+        appear[QUESTIONS[i].opts[j].t]++;
+      }
+    }
+    for (i = 0; i < ORDER.length; i++){
+      k = ORDER[i];
+      maxScore[k] = Math.max(1, appear[k] * 3);
+    }
+
+    var sorted = ORDER.slice().sort(function(a, b){
+      var d = res.scores[b] - res.scores[a];
+      if (d) return d;
+      return ORDER.indexOf(a) - ORDER.indexOf(b);
+    });
+
+    var affHtml = '';
+    for (i = 0; i < sorted.length; i++){
+      k = sorted[i];
+      var t = TYPES[k];
+      var pct = Math.max(0, Math.min(100, Math.round(res.scores[k] / maxScore[k] * 100)));
+      affHtml += '<div class="aff-row' + (k === winner ? ' now' : '') + '">' +
+        '<span class="aff-rank">' + ('0' + (i + 1)).slice(-2) + '</span>' +
+        '<div class="aff-main"><div class="aff-name"><b>' + t.cn + '</b><span>' + t.title + '</span></div>' +
+        '<div class="aff-track"><i style="width:' + pct + '%"></i></div></div>' +
+        '<span class="aff-pct">' + pct + '%</span>' +
+      '</div>';
+    }
+
+    var guideHtml = '';
+    for (i = 0; i < type.guide.length; i++){
+      guideHtml += '<li><span class="guide-no">' + ('0' + (i + 1)).slice(-2) + '</span><p>' + type.guide[i] + '</p></li>';
+    }
+
+    shareText = buildShare(type);
+
+    var html =
+      '<div class="report-card hero-card">' +
+        '<div class="hero-kicker">Delphic Oracle · 专属神谕报告</div>' +
+        '<div class="coin-stage">' +
+          '<svg class="branch" viewBox="0 0 100 160" aria-hidden="true"><use href="#laurelBranch"/></svg>' +
+          '<div class="coin-halo"><svg class="coin-big" viewBox="0 0 120 120" aria-hidden="true"><use href="#oracleCoin"/></svg></div>' +
+          '<svg class="branch" viewBox="0 0 100 160" aria-hidden="true"><use href="#laurelBranch"/></svg>' +
+        '</div>' +
+        '<div class="type-no">NO.' + type.no + '</div>' +
+        '<h1 class="type-cn display">' + type.cn + '</h1>' +
+        '<div class="type-en">' + type.en + '</div>' +
+        '<div class="type-title">' + type.title + '<span class="title-dot"></span><span class="type-tagline">' + type.tagline + '</span></div>' +
+        '<div class="relic-chip"><span class="relic-label">圣物</span>' + type.relic + '</div>' +
+      '</div>' +
+
+      '<div class="report-card">' +
+        '<div class="sec-label">你的神殿<span>YOUR TEMPLE</span></div>' +
+        '<p class="temple-text">' + type.temple + '</p>' +
+      '</div>' +
+
+      '<div class="report-card">' +
+        '<div class="sec-label">神性指数<span>DIVINE INDEX</span></div>' +
+        indexRow('掌控力', 'CONTROL', type.idx.control, 'idx-control') +
+        indexRow('共情力', 'EMPATHY', type.idx.empathy, 'idx-empathy') +
+        indexRow('混乱度', 'CHAOS', type.idx.chaos, 'idx-chaos') +
+        '<p class="index-note">三项之和不必等于 100，神本来就不讲道理。</p>' +
+      '</div>' +
+
+      '<div class="report-card oracle-card">' +
+        '<div class="sec-label">神谕正文<span>THE ORACLE</span></div>' +
+        '<p class="oracle-text">' + type.oracle + '</p>' +
+        '<div class="oracle-sign">德尔斐 · 神谕之印</div>' +
+      '</div>' +
+
+      '<div class="report-card nemesis-card">' +
+        '<div class="sec-label nemesis-label">宿敌之神<span>NEMESIS</span></div>' +
+        '<div class="nem-row">' +
+          '<div><div class="nem-name">' + nem.cn + '<span>' + nem.title + ' · ' + nem.tagline + '</span></div><div class="nem-en">' + nem.en + '</div></div>' +
+          '<div class="nem-vs">VS</div>' +
+        '</div>' +
+        '<p class="nem-why">' + type.nemesisWhy + '</p>' +
+      '</div>' +
+
+      '<div class="bless-card">' +
+        '<div class="bless-seal">福</div>' +
+        '<div class="bless-label">Oracle Blessing</div>' +
+        '<p class="bless-text">' + type.bless + '</p>' +
+      '</div>' +
+
+      '<div class="report-card">' +
+        '<div class="sec-label">三条神谕指引<span>ORACLE ADVICE</span></div>' +
+        '<ol class="guide-list">' + guideHtml + '</ol>' +
+      '</div>' +
+
+      '<div class="report-card">' +
+        '<div class="sec-label">八神亲和排行<span>AFFINITY</span></div>' +
+        affHtml +
+      '</div>' +
+
+      '<div class="report-card">' +
+        '<div class="sec-label">分享这篇神谕<span>SHARE</span></div>' +
+        '<p class="share-preview" id="sharePreview"></p>' +
+        '<button class="btn btn-primary" type="button" data-act="copy" id="copyBtn">复制分享文案</button>' +
+      '</div>' +
+
+      '<p class="disclaimer">娱乐向 · 神谕不构成预言或心理诊断</p>' +
+
+      '<div class="result-actions">' +
+        '<button class="btn btn-primary" type="button" data-act="restart">重新测</button>' +
+        '<button class="btn btn-ghost" type="button" data-act="last">回到最后一题修改</button>' +
+      '</div>' +
+
+      '<div class="cross-link"><a href="greek-god-quiz.html">想看完整版？挑战 18 题 →</a></div>';
+
+    $('resultRoot').innerHTML = html;
+    $('sharePreview').textContent = shareText;
+  }
+
+  function legacyCopy(text){
+    try{
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'fixed';
+      ta.style.left = '-9999px';
+      ta.style.top = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, ta.value.length);
+      var ok = false;
+      try{ ok = document.execCommand('copy'); }catch(e){ ok = false; }
+      document.body.removeChild(ta);
+      return ok;
+    }catch(e){
+      return false;
+    }
+  }
+
+  function copyShare(btn){
+    if (!btn || btn.getAttribute('data-busy') === '1') return;
+    btn.setAttribute('data-busy', '1');
+    btn.textContent = '分享文案已生成';
+
+    var settled = false;
+    var resetTimer = null;
+
+    function reset(){
+      btn.setAttribute('data-busy', '0');
+      btn.textContent = '复制分享文案';
+      if (resetTimer) { clearTimeout(resetTimer); resetTimer = null; }
+    }
+    function done(ok){
+      if (settled) return;
+      settled = true;
+      if (ok){
+        btn.textContent = '已复制';
+        btn.setAttribute('data-busy', '0');
+        toast('神谕已复制，去分享吧');
+        resetTimer = setTimeout(reset, 2200);
+      } else {
+        window.prompt('长按复制分享文案', shareText);
+        reset();
+      }
+    }
+
+    try{
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        var p = navigator.clipboard.writeText(shareText);
+        if (p && typeof p.then === 'function'){
+          p.then(function(){ done(true); }).catch(function(){ done(legacyCopy(shareText)); });
+        } else {
+          done(legacyCopy(shareText));
+        }
+        setTimeout(function(){ done(legacyCopy(shareText)); }, 1500);
+      } else {
+        done(legacyCopy(shareText));
+      }
+    }catch(e){
+      done(legacyCopy(shareText));
+    }
+  }
+
+  $('startBtn').addEventListener('click', function(){
+    answers.length = 0;
+    cur = 0;
+    locked = false;
+    renderQuestion();
+    showScreen('quiz');
+  });
+
+  backBtn.addEventListener('click', function(){
+    if (locked) return;
+    if (cur > 0){ cur--; renderQuestion(); }
+  });
+
+  $('resultRoot').addEventListener('click', function(e){
+    var node = e.target;
+    while (node && node !== this && !(node.getAttribute && node.getAttribute('data-act'))){
+      node = node.parentNode;
+    }
+    if (!node || !node.getAttribute) return;
+    var act = node.getAttribute('data-act');
+    if (act === 'restart') restart();
+    else if (act === 'last') backToLast();
+    else if (act === 'copy') copyShare(node);
+  });
+
+  renderQuestion();
+})();
+</script>
+</body>
+</html>
